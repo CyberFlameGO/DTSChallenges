@@ -1,1 +1,5 @@
-<root></root>
+<root>
+    <item name='java.lang.String java.lang.String strip()'>
+        <annotation name='org.jetbrains.annotations.NonNls'/>
+    </item>
+</root>
