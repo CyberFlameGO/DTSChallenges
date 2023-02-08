@@ -14,11 +14,11 @@ public enum Main {
      */
     public static void main(final String[] args) {
         final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
-        final int gsm;
         final String paperTypeQuestion = "Poster paper, or office paper? ";
         final String rawBookletStr = "The booklet weight is: {0}gsm";
         final String invalidPagesError = "Invalid number of pages!";
         final String pagesAmountQuestion = "How many pages is your booklet: ";
+        int gsm;
         
         System.out.print(paperTypeQuestion);
         gsm = switch (scanner.nextLine().toLowerCase(Locale.ROOT).strip()) {
