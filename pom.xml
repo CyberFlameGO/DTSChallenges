@@ -41,7 +41,7 @@
                 <filtering>true</filtering>
                 <directory>${basedir}/src/main/resources/</directory>
                 <includes>
-                    <include>*.properties</include>
+                    <include>*.csv</include>
                 </includes>
             </resource>
         </resources>
