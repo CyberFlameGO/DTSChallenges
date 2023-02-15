@@ -1,7 +1,6 @@
 package net.cyberflame.dtschallenges;
 
-import net.cyberflame.dtschallenges.challenges.Challenge01;
-import net.cyberflame.dtschallenges.challenges.PythonChallenges;
+import net.cyberflame.dtschallenges.challenges.*;
 
 import java.util.Scanner;
 

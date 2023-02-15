@@ -19,7 +19,6 @@ public class PythonChallenges extends BaseChallenge {
             proc = new ProcessBuilder("python", pyScriptLoc, Integer.toString(Main.getChallenge()))
                     .inheritIO()
                     .start();
-            assert null != proc;
             if (!proc.waitFor(10L, TimeUnit.SECONDS)) {
                 proc.destroyForcibly();
             }
