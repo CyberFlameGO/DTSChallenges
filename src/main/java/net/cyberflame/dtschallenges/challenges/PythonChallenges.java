@@ -19,16 +19,14 @@ public class PythonChallenges extends BaseChallenge {
             proc = new ProcessBuilder("python", pyScriptLoc, Integer.toString(Main.getChallenge()))
                     .inheritIO()
                     .start();
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        try {
             assert null != proc;
             if (!proc.waitFor(10L, TimeUnit.SECONDS)) {
                 proc.destroyForcibly();
             }
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
         }
+
         catch (InterruptedException e) {
             proc.destroyForcibly();
             e.printStackTrace();
