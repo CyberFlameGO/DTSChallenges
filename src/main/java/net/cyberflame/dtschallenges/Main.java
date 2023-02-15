@@ -1,21 +1,28 @@
 package net.cyberflame.dtschallenges;
 
-import net.cyberflame.dtschallenges.challenges.*;
+import net.cyberflame.dtschallenges.challenges.Challenge01;
+import net.cyberflame.dtschallenges.challenges.PythonChallenges;
 
 import java.util.Scanner;
 
 public class Main {
 
-    /**
-     * @throws IllegalStateException
-     */
-    public static void main(final String[] args) {
+    private static int challenge;
+
+
+    public static int getChallenge() {
+        return challenge;
+    }
+
+
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Which challenge would you like to run? ");
-        int challenge = scanner.nextInt();
-        switch (challenge) {
+        challenge = scanner.nextInt();
+        switch (getChallenge()) {
             case 1 -> new Challenge01().run();
-            default -> throw new IllegalStateException("Unexpected value: " + challenge);
+            case 2,3 -> new PythonChallenges().run();
+            default -> throw new IllegalStateException("Unexpected value: " + getChallenge());
         }
 
 

@@ -1,13 +1,11 @@
 package net.cyberflame.dtschallenges.challenges;
 
-import net.cyberflame.dtschallenges.IChallenge;
-
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Challenge01 implements IChallenge {
+public class Challenge01 extends BaseChallenge {
     @Override
     public void main(final String[] args) {
         // Creates a scanner which reads from stdin, and uses UTF-8 encoding.
