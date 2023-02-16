@@ -17,7 +17,7 @@ public class PythonChallenges extends BaseChallenge {
             String pyScriptLoc = Main.class.getProtectionDomain().getCodeSource().getLocation()
                     .toURI().getPath();
             proc = new ProcessBuilder("python", pyScriptLoc,
-            Long.toString(ProcessHandle.current().pid());
+            Long.toString(ProcessHandle.current().pid()),
             Integer.toString(Main.getChallenge()))
                     .inheritIO()
                     .start();
@@ -33,6 +33,7 @@ public class PythonChallenges extends BaseChallenge {
             e.printStackTrace();
         }
 
+        assert proc != null;
         if (proc.exitValue() != 0) {
             System.out.println("Process exited with non-zero status code. Code: " + proc.exitValue());
             // Handle error
