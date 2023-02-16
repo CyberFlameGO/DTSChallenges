@@ -16,7 +16,9 @@ public class PythonChallenges extends BaseChallenge {
         try {
             String pyScriptLoc = Main.class.getProtectionDomain().getCodeSource().getLocation()
                     .toURI().getPath();
-            proc = new ProcessBuilder("python", pyScriptLoc, Integer.toString(Main.getChallenge()))
+            proc = new ProcessBuilder("python", pyScriptLoc,
+            Long.toString(ProcessHandle.current().pid());
+            Integer.toString(Main.getChallenge()))
                     .inheritIO()
                     .start();
             if (!proc.waitFor(10L, TimeUnit.SECONDS)) {
