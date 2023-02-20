@@ -83,7 +83,11 @@ def challenge1():
         print("Reading the csv file...")
         for row in get_csv("validData.csv"):
             print(row)
-        return
+        return None
+    del read
+
+    # there is some weird quirk in this program where it'll print the whole file occasionally, though i suspect
+    # that's more of a java issue than a python issue
 
     invalid_data: dict = dict()  # initialising the dictionary via the dict() call to avoid ambiguity between empty
     # set and empty dict
