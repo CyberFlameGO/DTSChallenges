@@ -64,11 +64,8 @@ class JarUtils(object):
     #     self.zip_file.close()
 
 
-
-
 def get_csv(file_name):
     return csv.reader(JarUtils().read(file_name).decode("utf-8").splitlines())
-
 
 
 # will clean up later
@@ -84,7 +81,7 @@ def challenge1():
     read = input("Would you like to read the csv file? ('y' for yes, other for skip) ")
     if read == "y":
         print("Reading the csv file...")
-        for row in csv_data:
+        for row in get_csv("validData.csv"):
             print(row)
         return
 
@@ -142,7 +139,9 @@ def challenge1():
 
     # suppress duplicate name warning
     warnings.filterwarnings("ignore", category = UserWarning, module = 'zipfile')
-    JarUtils(mode = "a").write("validData.csv", valid_data.getvalue())
+    JarUtils(mode = "a").write("validData.csv", valid_data.getvalue())  # this is a terrible solution and it may be
+    # better to just use the .open() method of ZipFile so we don't have to suppress the warning
 
 
 challenge1()
+input("Execution of challenge finished. Press enter to exit...")

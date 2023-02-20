@@ -4,6 +4,7 @@ import net.cyberflame.dtschallenges.Main;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.lang.IllegalThreadStateException;
 import java.util.concurrent.TimeUnit;
 
 
@@ -21,15 +22,15 @@ public class PythonChallenges extends BaseChallenge {
             Integer.toString(Main.getChallenge()))
                     .inheritIO()
                     .start();
-//             if (!proc.waitFor(10L, TimeUnit.SECONDS)) {
-//                 proc.destroyForcibly();
-//             }
+            if (!proc.waitFor(600L, TimeUnit.SECONDS)) {
+                 proc.destroyForcibly();
+            }
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
 
-        catch (InterruptedException e) {
-            proc.destroyForcibly();
+        catch (InterruptedException | IllegalThreadStateException e) {
+//             proc.destroyForcibly();
             e.printStackTrace();
         }
 
