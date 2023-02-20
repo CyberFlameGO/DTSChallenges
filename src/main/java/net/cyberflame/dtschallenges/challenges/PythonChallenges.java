@@ -31,7 +31,7 @@ public class PythonChallenges extends BaseChallenge {
 
         catch (InterruptedException | IllegalThreadStateException e) {
 //             proc.destroyForcibly();
-            e.printStackTrace();
+                e.printStackTrace();
         }
 
         assert proc != null;
