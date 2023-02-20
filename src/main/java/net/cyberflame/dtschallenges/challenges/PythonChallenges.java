@@ -21,9 +21,9 @@ public class PythonChallenges extends BaseChallenge {
             Integer.toString(Main.getChallenge()))
                     .inheritIO()
                     .start();
-            if (!proc.waitFor(10L, TimeUnit.SECONDS)) {
-                proc.destroyForcibly();
-            }
+//             if (!proc.waitFor(10L, TimeUnit.SECONDS)) {
+//                 proc.destroyForcibly();
+//             }
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }

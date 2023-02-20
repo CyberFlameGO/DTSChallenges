@@ -3,8 +3,9 @@ TODO: huge cleanups - stuff to do is also in comments so do those too
 oh yeah also i should set up something that just updates the jar instead of maven building every single time
 i wanna run python)
 """
-
-import zipfile, os, argparse, csv, sys
+import warnings
+import zipfile, os, argparse, csv, sys, io
+from typing import Literal
 
 
 # print(__name__)
@@ -27,11 +28,27 @@ class JarUtils(object):
     """
     current_dir = __file__.replace("/" + os.path.basename(__file__), "")
 
-    def __init__(self):
-        self.zip_file = zipfile.ZipFile(self.current_dir)
+    def __init__(self, mode: Literal["r", "w", "x", "a"] = 'r'):
+        self.zip_file = zipfile.ZipFile(self.current_dir, mode)
 
     def read(self, file_name):
+        """
+        Reads a file from the jar
+        :param file_name: the name of the file to read
+        :return: the contents of the file
+        """
         return self.zip_file.read(file_name)
+
+    def write(self, file_name, data):
+        """
+        Writes data to a file in the jar
+        :param file_name: the name of the file to write to
+        :param data: the data to write to the file
+        :return:
+        """
+        if self.zip_file.mode == "r":
+            raise Exception("Zip file is in read-only mode")
+        self.zip_file.writestr(file_name, data)
 
     def __del__(self):
         """
@@ -47,14 +64,11 @@ class JarUtils(object):
     #     self.zip_file.close()
 
 
-print(dir(JarUtils()))
 
 
 def get_csv(file_name):
     return csv.reader(JarUtils().read(file_name).decode("utf-8").splitlines())
 
-
-print(get_csv("mockData.csv"))
 
 
 # will clean up later
@@ -63,7 +77,17 @@ def challenge1():
     Gets the first and third columns of the mockData.csv file
     :return:
     """
+
     csv_data = get_csv("mockData.csv")
+
+    # ask the user if they would like to read the csv file
+    read = input("Would you like to read the csv file? ('y' for yes, other for skip) ")
+    if read == "y":
+        print("Reading the csv file...")
+        for row in csv_data:
+            print(row)
+        return
+
     invalid_data: dict = dict()  # initialising the dictionary via the dict() call to avoid ambiguity between empty
     # set and empty dict
     print("Valid usernames and emails: ")
@@ -71,17 +95,54 @@ def challenge1():
     # This is to skip the header row
     itercsv_data = iter(csv_data)
     next(itercsv_data)
+    valid_data = io.StringIO(str(JarUtils().read("validData.csv")), newline = '')
+    writer = csv.writer(valid_data, delimiter = ',', quotechar = '"', quoting = csv.QUOTE_MINIMAL)
     for row in itercsv_data:
-        print(row[0], [row[3] if "@" in row[3] and "." in row[3] else invalid_data.update({row[0]: row[3]})][0])  #
-        # add a note saying email values with None are invalid and aren't written to csv
-        # TODO: https://www.pythontutorial.net/python-basics/python-write-csv-file/
-        # TODO: https://docs.python.org/3/library/zipfile.html
+        checked = (row[0], row[3] if "@" in row[3] and "." in row[3] else invalid_data.update({row[0]: row[3]}))
+        if None not in checked:
+            print(checked[0], checked[1])
+
+            # check if the user email pair is already in the csv
+            # if it is, don't add it again
+            reader = csv.reader(valid_data.getvalue().splitlines())
+            itercsv_data = iter(reader)
+            next(itercsv_data)
+            in_csv = False
+            for line in itercsv_data:
+                if line is checked:
+                    print("Already in the CSV")
+                    in_csv = True
+                    break
+            if not in_csv:
+                writer.writerow((checked[0], checked[1]))
+
+    # TODO: https://www.pythontutorial.net/python-basics/python-write-csv-file/
+    # TODO: https://docs.python.org/3/library/zipfile.html
     print("Invalid emails: ")
-    if len(invalid_data) is 0:
+    if len(invalid_data) == 0:
         print("No invalid emails to report :)")
     else:
         for key, value in invalid_data.items():
             print(key, value)
+
+    # ask the user if they would like to add more usernames and emails
+    adding = True
+    while adding:
+        add = input("Would you like to add more usernames and emails? (y/n) ")
+        if add == "y":
+            new_username = input("Enter a new username: ")
+            new_email = input("Enter a new email: ")
+            if "@" in new_email and "." in new_email:
+                print("Valid email")
+                writer.writerow((new_username, new_email))
+            else:
+                print("Invalid email")
+        elif add == "n":
+            adding = False
+
+    # suppress duplicate name warning
+    warnings.filterwarnings("ignore", category = UserWarning, module = 'zipfile')
+    JarUtils(mode = "a").write("validData.csv", valid_data.getvalue())
 
 
 challenge1()
