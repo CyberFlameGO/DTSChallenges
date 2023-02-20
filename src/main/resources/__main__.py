@@ -117,8 +117,9 @@ def challenge1():
             if not in_csv:
                 writer.writerow((checked[0], checked[1]))
 
-    # TODO: https://www.pythontutorial.net/python-basics/python-write-csv-file/
-    # TODO: https://docs.python.org/3/library/zipfile.html
+    # TODO: https://www.pythontutorial.net/python-basics/python-write-csv-file/  # despite program being complete
+    #  this is still usable for optimizing the csv with writing data in bulk/using a dict.
+    #  this spec doc also remains useful https://docs.python.org/3/library/zipfile.html
     print("Invalid emails: ")
     if len(invalid_data) == 0:
         print("No invalid emails to report :)")
