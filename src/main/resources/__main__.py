@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 TODO: huge cleanups - stuff to do is also in comments so do those too
 oh yeah also i should set up something that just updates the jar instead of maven building every single time
@@ -6,6 +7,8 @@ i wanna run python)
 import warnings
 import zipfile, os, argparse, csv, sys, io
 from typing import Literal
+
+import utils
 
 
 # print(__name__)
@@ -22,66 +25,23 @@ from typing import Literal
 # print(os.getppid.__name__, os.getppid())  # this one isn't related but was suggested so i'll look into this ig
 
 
-class JarUtils(object):
-    """
-    Class for reading files from a jar
-    """
-    current_dir = __file__.replace("/" + os.path.basename(__file__), "")
 
-    def __init__(self, mode: Literal["r", "w", "x", "a"] = 'r'):
-        self.zip_file = zipfile.ZipFile(self.current_dir, mode)
-
-    def read(self, file_name):
-        """
-        Reads a file from the jar
-        :param file_name: the name of the file to read
-        :return: the contents of the file
-        """
-        return self.zip_file.read(file_name)
-
-    def write(self, file_name, data):
-        """
-        Writes data to a file in the jar
-        :param file_name: the name of the file to write to
-        :param data: the data to write to the file
-        :return:
-        """
-        if self.zip_file.mode == "r":
-            raise Exception("Zip file is in read-only mode")
-        self.zip_file.writestr(file_name, data)
-
-    def __del__(self):
-        """
-        Closes the zip file when the object is deleted because that's what ZipFile specifies you should do,
-        and there's no other surefire and clean way to close every time an action is completed  (even though using
-        __del__ isn't recommended).
-        https://docs.python.org/3/library/atexit.html may also be of use
-        :return:
-        """
-        self.zip_file.close()
-
-    # def close(self):
-    #     self.zip_file.close()
-
-
-def get_csv(file_name):
-    return csv.reader(JarUtils().read(file_name).decode("utf-8").splitlines())
 
 
 # will clean up later
-def challenge1():
+def challenge2():
     """
     Gets the first and third columns of the mockData.csv file
     :return:
     """
 
-    csv_data = get_csv("mockData.csv")
+    csv_data = utils.get_csv("mockData.csv")
 
     # ask the user if they would like to read the csv file
     read = input("Would you like to read the csv file? ('y' for yes, other for skip) ")
     if read == "y":
         print("Reading the csv file...")
-        for row in get_csv("validData.csv"):
+        for row in utils.get_csv("validData.csv"):
             print(row)
         return None
     del read
@@ -96,7 +56,7 @@ def challenge1():
     # This is to skip the header row
     itercsv_data = iter(csv_data)
     next(itercsv_data)
-    valid_data = io.StringIO(str(JarUtils().read("validData.csv")), newline = '')
+    valid_data = io.StringIO(str(utils.JarUtils().read("validData.csv")), newline = '')
     writer = csv.writer(valid_data, delimiter = ',', quotechar = '"', quoting = csv.QUOTE_MINIMAL)
     for row in itercsv_data:
         checked = (row[0], row[3] if "@" in row[3] and "." in row[3] else invalid_data.update({row[0]: row[3]}))
@@ -144,9 +104,19 @@ def challenge1():
 
     # suppress duplicate name warning
     warnings.filterwarnings("ignore", category = UserWarning, module = 'zipfile')
-    JarUtils(mode = "a").write("validData.csv", valid_data.getvalue())  # this is a terrible solution and it may be
+    utils.JarUtils(mode = "a").write("validData.csv", valid_data.getvalue())  # this is a terrible solution and it
+    # may be
     # better to just use the .open() method of ZipFile so we don't have to suppress the warning
 
+def challenge3():
 
-challenge1()
+
+match sys.argv[2]:
+    case 2:
+        challenge2()
+    case 3:
+        challenge3()
+
+
+# This prevents instant killing of the program after the challenge runs - more of a testing thing but I'll keep it here
 input("Execution of challenge finished. Press enter to exit...")
