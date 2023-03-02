@@ -12,7 +12,7 @@ public class PythonChallenges extends BaseChallenge {
 
     @Override
     public void main(String[] args) {
-        System.out.println("This is challenge " + Main.getChallenge());
+        System.out.println("Executing Python challenge " + Main.getChallenge() + "...");
         Process proc = null;
         try {
             String pyScriptLoc = Main.class.getProtectionDomain().getCodeSource().getLocation()
