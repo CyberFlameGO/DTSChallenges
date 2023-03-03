@@ -5,7 +5,7 @@ oh yeah also i should set up something that just updates the jar instead of mave
 i wanna run python)
 """
 import warnings
-import zipfile, os, argparse, csv, sys, io
+import zipfile, os, argparse, csv, sys, io, secrets
 from typing import Literal
 
 import utils
@@ -109,6 +109,30 @@ def challenge2():
     # better to just use the .open() method of ZipFile so we don't have to suppress the warning
 
 def challenge3():
+    """
+    rock paper scissors against computer using python secrets library (as opposed to random)
+    """
+    weapons = ["rock", "paper", "scissors"]
+    while True:
+        # generate a random weapon for the computer
+        computer_choice = secrets.choice(weapons)
+        # ask the user for their weapon
+        user_choice = input("Choose your weapon: ")
+        # check if the user input is valid
+        if user_choice in weapons:
+            print("Computer chose", computer_choice)
+        # check if the user won
+
+                # ask the user if they want to play again
+                play_again = input("Play again? (y/n) ")
+                if play_again == "y":
+                    continue
+                elif play_again == "n":
+                    break
+        else:
+            print("Invalid input")
+
+
 
 
 match sys.argv[2]:

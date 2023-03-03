@@ -48,3 +48,26 @@ class JarUtils(object):
 
 def get_csv(file_name):
     return csv.reader(JarUtils().read(file_name).decode("utf-8").splitlines())
+
+def rps_winner_check(player1, player2):
+    """
+    Checks which player won rock paper scissors
+    """
+    # todo: make this match-case
+    if player1 == player2:
+        return "tie"
+    elif player1 == "rock":
+        if player2 == "scissors":
+            return "player1"
+        else:
+            return "player2"
+    elif player1 == "paper":
+        if player2 == "rock":
+            return "player1"
+        else:
+            return "player2"
+    elif player1 == "scissors":
+        if player2 == "paper":
+            return "player1"
+        else:
+            return "player2"
