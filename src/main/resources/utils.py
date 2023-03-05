@@ -56,18 +56,20 @@ def rps_winner_check(player1, player2):
     # todo: make this match-case
     if player1 == player2:
         return "tie"
-    elif player1 == "rock":
-        if player2 == "scissors":
-            return "player1"
-        else:
-            return "player2"
-    elif player1 == "paper":
-        if player2 == "rock":
-            return "player1"
-        else:
-            return "player2"
-    elif player1 == "scissors":
-        if player2 == "paper":
-            return "player1"
-        else:
-            return "player2"
+    else:
+        match player1:
+            case "rock":
+                if player2 == "scissors":
+                    return "player1"
+                else:
+                    return "player2"
+            case "paper":
+                if player2 == "rock":
+                    return "player1"
+                else:
+                    return "player2"
+            case "scissors":
+                if player2 == "paper":
+                    return "player1"
+                else:
+                    return "player2"

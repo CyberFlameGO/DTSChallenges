@@ -25,9 +25,6 @@ import utils
 # print(os.getppid.__name__, os.getppid())  # this one isn't related but was suggested so i'll look into this ig
 
 
-
-
-
 # will clean up later
 def challenge2():
     """
@@ -108,6 +105,7 @@ def challenge2():
     # may be
     # better to just use the .open() method of ZipFile so we don't have to suppress the warning
 
+
 def challenge3():
     """
     rock paper scissors against computer using python secrets library (as opposed to random)
@@ -116,31 +114,40 @@ def challenge3():
     while True:
         # generate a random weapon for the computer
         computer_choice = secrets.choice(weapons)
-        # ask the user for their weapon
+        # ask the user for their weapon - this input getting code is untidy but it doesn't matter
         user_choice = input("Choose your weapon: ")
         # check if the user input is valid
-        if user_choice in weapons:
-            print("Computer chose", computer_choice)
+        checking_input = True
+        while checking_input:
+            if user_choice in weapons:
+                checking_input = False
+            else:
+                user_choice = input("Invalid input. Choose your weapon: ")
+        print("Computer chose", computer_choice)
         # check if the user won
+        result = utils.rps_winner_check(user_choice, computer_choice)
 
-                # ask the user if they want to play again
-                play_again = input("Play again? (y/n) ")
-                if play_again == "y":
-                    continue
-                elif play_again == "n":
-                    break
+        if result == "player1":
+            print("You win!")
+        elif result == "player2":
+            print("You lose!")
+        else:
+            print("Draw!")
+        # ask the user if they want to play again
+        play_again = input("Play again? (y/n) ")
+        if play_again == "y":
+            continue
+        elif play_again == "n":
+            break
         else:
             print("Invalid input")
 
 
-
-
 match sys.argv[2]:
-    case 2:
+    case '2':
         challenge2()
-    case 3:
+    case '3':
         challenge3()
-
 
 # This prevents instant killing of the program after the challenge runs - more of a testing thing but I'll keep it here
 input("Execution of challenge finished. Press enter to exit...")
