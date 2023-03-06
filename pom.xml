@@ -30,8 +30,8 @@
     <distributionManagement>
         <repository>
             <id>github</id>
-            <name>GitHub CyberFlameGO Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/cyberflamego/dtschallenges</url>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/cyberflamego/dtschallenges/</url>
         </repository>
     </distributionManagement>
 
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>24.0.0</version>
+            <version>24.0.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -170,7 +170,7 @@
                 <version>3.0.0-M7</version>
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <useReleaseProfile>false</useReleaseProfile>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
                     <releaseProfiles>release</releaseProfiles>
                     <goals>deploy</goals>
                 </configuration>
