@@ -142,12 +142,25 @@ def challenge3():
         else:
             print("Invalid input")
 
+def challenge4():
+    """
+    Calculates the amount of tax paid for a given yearly pay, using New Zealand tax brackets
+    """
+    # get the user's yearly pay
+    yearly_pay = float(input("Enter your yearly pay: "))
+    # calculate the tax paid
+    tax_paid = utils.tax_calculator(yearly_pay)
+    # print the tax paid
+    print("Tax paid: $", tax_paid)
+
 
 match sys.argv[2]:
     case '2':
         challenge2()
     case '3':
         challenge3()
+    case '4':
+        challenge4()
 
 # This prevents instant killing of the program after the challenge runs - more of a testing thing but I'll keep it here
 input("Execution of challenge finished. Press enter to exit...")

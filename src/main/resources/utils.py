@@ -73,3 +73,12 @@ def rps_winner_check(player1, player2):
                     return "player1"
                 else:
                     return "player2"
+
+def tax_calculator(amount):
+    """
+    Calculates tax paid, accounting for New Zealand's tax brackets
+    """
+
+    # Tax variable
+    tax = 0
+    amount_adjusted = amount

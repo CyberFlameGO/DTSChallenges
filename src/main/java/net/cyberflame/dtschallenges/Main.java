@@ -22,7 +22,7 @@ public class Main {
             case 1 -> new Challenge01().run();
 
             // Run in a new thread to test if it fixes a certain weird quirk I'm facing
-            case 2,3 -> new Thread(new PythonChallenges()::run).start();
+            case 2,3,4 -> new Thread(new PythonChallenges()::run).start();
             default -> throw new IllegalStateException("Unexpected value: " + getChallenge());
         }
 
