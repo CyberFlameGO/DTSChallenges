@@ -188,6 +188,7 @@
                     <tagNameFormat>v@{project.version}</tagNameFormat>
                     <releaseProfiles>release</releaseProfiles>
                     <goals>deploy</goals>
+                    <signTag>true</signTag>
                 </configuration>
             </plugin>
             <plugin>
