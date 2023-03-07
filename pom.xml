@@ -35,6 +35,21 @@
         </repository>
     </distributionManagement>
 
+    <issueManagement>
+        <url>https://github.com/CyberFlameGO/DTSChallenges/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <email>cyberflameu@gmail.com</email>
+            <name>Aaron Lowe</name>
+            <url>https://github.com/CyberFlameGO</url>
+            <id>cyberflamego</id>
+        </developer>
+    </developers>
+
+
     <dependencies>
         <dependency>
             <groupId>org.jetbrains</groupId>
