@@ -19,7 +19,7 @@ sentry_sdk.init(
     # We recommend adjusting this value in production.
     traces_sample_rate = 1.0,
     send_default_pii = True,
-    release = "dtschallenges@v1.1.3",
+    release = "dtschallenges@v1.1.4",
     _experiments = {
         "profiles_sample_rate": 1.0,
     }
