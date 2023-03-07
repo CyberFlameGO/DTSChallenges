@@ -7,9 +7,23 @@ i wanna run python)
 import warnings
 import zipfile, os, argparse, csv, sys, io, secrets
 from typing import Literal
+import sentry_sdk
 
 import utils
 
+sentry_sdk.init(
+    dsn = "https://27252358513746979bf5efeb097b181d@o317122.ingest.sentry.io/4504799572983808",
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate = 1.0,
+    send_default_pii = True,
+    release = "dtschallenges@v1.1.3",
+    _experiments = {
+        "profiles_sample_rate": 1.0,
+    }
+)
 
 # print(__name__)
 #
@@ -154,12 +168,12 @@ def challenge4():
     print("Tax paid: $", tax_paid)
 
 
-match sys.argv[2]:
-    case '2':
+match int(sys.argv[2]):
+    case 2:
         challenge2()
-    case '3':
+    case 3:
         challenge3()
-    case '4':
+    case 4:
         challenge4()
 
 # This prevents instant killing of the program after the challenge runs - more of a testing thing but I'll keep it here

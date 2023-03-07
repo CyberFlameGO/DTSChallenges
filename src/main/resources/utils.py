@@ -49,6 +49,7 @@ class JarUtils(object):
 def get_csv(file_name):
     return csv.reader(JarUtils().read(file_name).decode("utf-8").splitlines())
 
+
 def rps_winner_check(player1, player2):
     """
     Checks which player won rock paper scissors
@@ -74,11 +75,38 @@ def rps_winner_check(player1, player2):
                 else:
                     return "player2"
 
+
 def tax_calculator(amount):
     """
-    Calculates tax paid, accounting for New Zealand's tax brackets
+    Calculates tax paid, accounting for New Zealand's tax brackets.
+    This is done very inefficiently but may be fixed in the future
     """
 
     # Tax variable
     tax = 0
     amount_adjusted = amount
+    if amount <= 14000:
+        tax += amount * 0.105
+    elif 48000 >= amount > 14000:
+        tax += 14000 * 0.105
+        amount_adjusted -= 14000
+        tax += amount_adjusted * 0.175
+    elif 70000 >= amount > 48000:
+        tax += 14000 * 0.105
+        tax += 34000 * 0.175
+        amount_adjusted -= 48000
+        tax += amount_adjusted * 0.3
+    elif 180000 >= amount > 70000:
+        tax += 14000 * 0.105
+        tax += 34000 * 0.175
+        tax += 120000 * 0.3
+        amount_adjusted -= 70000
+        tax += amount_adjusted * 0.33
+    elif amount > 180000:
+        tax += 14000 * 0.105
+        tax += 34000 * 0.175
+        tax += 120000 * 0.3
+        tax += 110000 * 0.33
+        amount_adjusted -= 180000
+        tax += amount_adjusted * 0.38
+    return tax
